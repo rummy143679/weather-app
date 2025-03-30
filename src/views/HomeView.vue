@@ -1,18 +1,51 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container-fluid">
+    <div class="input-group mt-2">
+      <input type="text" class="form-control border-success" placeholder="Search by city...." aria-label="city input" v-model="city" >
+      <button class="btn btn-success" type="button" @click="getWeatherData">Search</button>
+    </div>
+    <div v-if="weatherData">
+      <weather-main :weatherData="weatherData"></weather-main>
+      <forecast-cards :city="weatherData.name"></forecast-cards>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import ForecastCards from '../components/ForecastCards.vue';
+import WeatherMain from '../components/WeatherMain.vue';
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    ForecastCards,
+    WeatherMain
+  },
+  data() {
+    return {
+      weatherData: null,
+      city : "",
+    }
+  },
+  methods: {
+    getWeatherData() {
+      const apikey = process.env.VUE_APP_API_KEY
+      this.$axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${apikey}`).then(response => {
+        console.log(response.data)
+        this.weatherData = response.data;
+      }).catch(error => {
+        console.error('There was a problem with the fetch operation:', error)
+      })
+    }
   }
 }
 </script>
+<style scoped>
+.container-fluid {
+  background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHdlYXRoZXJ8ZW58MHx8fHwxNjg3NTY5NzA1&ixlib=rb-4.0.3&q=80&w=1080');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+</style>

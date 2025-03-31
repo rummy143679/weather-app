@@ -45,12 +45,16 @@ export default {
         console.error('There was a problem with the fetch operation:', error)
         this.error = true;
         this.weatherData = null;
-        // if(error.response) {
-        //   alert("City not found")
-        // }
       })
     }
-  }
+  },
+  watch: {
+    city(newCity) {
+      if (newCity.length > 0) {
+        this.error = false;
+      }
+    }
+  },
 }
 </script>
 <style scoped>

@@ -1,12 +1,16 @@
 <template>
   <div class="container-fluid">
-    <div class="input-group mt-2">
-      <input type="text" class="form-control border-success" placeholder="Search by city...." aria-label="city input" v-model="city" >
-      <button class="btn btn-success" type="button" @click="getWeatherData">Search</button>
-    </div>
-    <div v-if="weatherData">
-      <weather-main :weatherData="weatherData"></weather-main>
-      <forecast-cards :city="weatherData.name"></forecast-cards>
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group">
+          <input type="text" class="form-control border-success" placeholder="Search by city...." aria-label="city input" v-model="city" >
+          <button class="btn btn-success" type="button" @click="getWeatherData">Search</button>
+        </div>
+        <div class="row" v-if="weatherData">
+          <weather-main :weatherData="weatherData"></weather-main>
+          <forecast-cards :city="weatherData.name"></forecast-cards>
+        </div>
+      </div>
     </div>
   </div>
 </template>

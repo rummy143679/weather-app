@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-center mt-2">
+    <div class="col-12 d-flex justify-content-center mt-2">
         <div class="card" style="width: 30rem;">
             <div class="card-body">
               <h5 class="card-title">{{weatherData.name}}</h5>

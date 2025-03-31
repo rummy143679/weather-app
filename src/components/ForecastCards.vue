@@ -1,21 +1,23 @@
 <template>
-    <div v-if="forecast" class="container mt-5">
-      <h2 class="text-center" style="color:aliceblue">5-Day Forecast for {{ forecast.city.name }}</h2>
-      <div class="d-flex justify-content-around main-div">
-        <div class="" v-for="(day, index) in forecast?.list" :key="index">
-          <div class="card" v-if="index % 8 === 0">
-            <div class="card-body text-center">
-              <h5 class="card-title">{{ formatDate(day.dt_txt) }}</h5>
-              <p class="card-text">
-                <img :src="'http://openweathermap.org/img/wn/' + day.weather[0].icon + '@2x.png'" alt="Weather Icon">
-                <br/>
-                {{ day.main.temp }} °C
-                <br/>
-                {{ day.weather[0].description }}
-              </p>
+    <div v-if="forecast" class="col-sm-12">
+      <div class="mt-3">
+        <h2 class="text-center" style="color:aliceblue">5-Day Forecast for {{ forecast.city.name }}</h2>
+        <div class="d-flex justify-content-around mt-3">
+          <div class="" v-for="(day, index) in forecast?.list" :key="index">
+            <div class="card" v-if="index % 8 === 0">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ formatDate(day.dt_txt) }}</h5>
+                <p class="card-text">
+                  <img :src="'http://openweathermap.org/img/wn/' + day.weather[0].icon + '@2x.png'" alt="Weather Icon">
+                  <br/>
+                  {{ day.main.temp }} °C
+                  <br/>
+                  {{ day.weather[0].description }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+      </div>
       </div>
     </div>
   </template>

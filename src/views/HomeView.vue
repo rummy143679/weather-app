@@ -10,6 +10,9 @@
           <weather-main :weatherData="weatherData"></weather-main>
           <forecast-cards :city="weatherData.name"></forecast-cards>
         </div>
+        <div v-if="error" class="alert alert-danger" role="alert">
+          {{ city }} city not found. Please try again.
+        </div>
       </div>
     </div>
   </div>
@@ -29,16 +32,22 @@ export default {
     return {
       weatherData: null,
       city : "",
+      error: false,
     }
   },
   methods: {
     getWeatherData() {
       const apikey = process.env.VUE_APP_API_KEY
       this.$axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${apikey}`).then(response => {
-        console.log(response.data)
         this.weatherData = response.data;
+        this.error = false
       }).catch(error => {
         console.error('There was a problem with the fetch operation:', error)
+        this.error = true;
+        this.weatherData = null;
+        // if(error.response) {
+        //   alert("City not found")
+        // }
       })
     }
   }
